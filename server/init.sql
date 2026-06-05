@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS games (
+  id SERIAL PRIMARY KEY,
+  game_name VARCHAR(255) NOT NULL,
+  status VARCHAR(50) NOT NULL DEFAULT 'waiting',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  started_at TIMESTAMP,
+  ended_at TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS game_events (
+  id SERIAL PRIMARY KEY,
+  game_id INTEGER REFERENCES games(id),
+  event_type VARCHAR(50) NOT NULL,
+  payload JSONB,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
