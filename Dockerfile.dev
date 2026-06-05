@@ -1,0 +1,18 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Instala dependências primeiro (cache de camadas)
+COPY server/package*.json ./server/
+
+RUN cd server && npm install
+
+# Copia o código
+COPY . .
+
+WORKDIR /app/server
+
+EXPOSE 55555
+
+# Usa nodemon para hot-reload
+CMD ["npx", "nodemon", "server.js"]
