@@ -4,7 +4,7 @@
 - **Aluna:** Anna Clara Cardoso Evangelista Brandão
 - **Matrícula:** 222006534
 - **Repositório:** https://github.com/annacbrandao/gces-projetoindividual
-- **URL de Producao:** https://gces-projetoindividual.onrender.com
+- **URL de Produção:** https://gces-projetoindividual.onrender.com
 
 ---
 
