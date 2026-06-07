@@ -33,3 +33,7 @@ jobs:
       - name: Testes Unitarios
         run: npm test
         working-directory: server
+
+      - name: SCA - Verificar vulnerabilidades nas dependencias
+        run: npm audit --audit-level=high
+        working-directory: server
