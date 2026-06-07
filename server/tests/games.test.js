@@ -157,3 +157,30 @@ describe('Game', () => {
     expect(() => { game.endGame(0); }).not.toThrow();
   });
 });
+
+describe('Game - cobertura adicional', () => {
+  let games;
+  beforeEach(() => { games = new GameCollection(); });
+
+  test('life-update do jogador 2 deve ser repassado ao jogador 1', () => {
+    games.createGame('jogo-life2');
+    const game = games.getGame('jogo-life2');
+    const s1 = createMockSocket();
+    const s2 = createMockSocket();
+    game.addPlayer(s1);
+    game.addPlayer(s2);
+    s2.trigger('life-update', { life: 50 });
+    expect(s1._emitted['life-update']).toEqual({ life: 50 });
+  });
+
+  test('position-update do jogador 1 deve ser repassado ao jogador 2', () => {
+    games.createGame('jogo-pos2');
+    const game = games.getGame('jogo-pos2');
+    const s1 = createMockSocket();
+    const s2 = createMockSocket();
+    game.addPlayer(s1);
+    game.addPlayer(s2);
+    s1.trigger('position-update', { x: 200 });
+    expect(s2._emitted['position-update']).toEqual({ x: 200 });
+  });
+});

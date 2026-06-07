@@ -4,6 +4,7 @@
 **Aluna:** Anna Clara Cardoso Evangelista Brandão
 **Matrícula:** 222006534
 **Repositório:** https://github.com/annacbrandao/gces-projetoindividual
+**URL de Producao:** https://gces-projetoindividual.onrender.com
 **URL de Produção:** https://gces-projetoindividual.onrender.com
 **URL de Produção:** https://gces-projetoindividual.onrender.com
 
@@ -110,3 +111,38 @@ Para o CD, criei `.github/workflows/cd.yml` que autentica no GitHub Container Re
 Para o HTTPS, o `cert-manager-issuer.yml` define um ClusterIssuer com Let's Encrypt. O `ingress.yml` usa as anotações `ssl-redirect` e `force-ssl-redirect` para redirecionar todo tráfego HTTP para HTTPS. A segurança de rede é garantida pela arquitetura: apenas o Ingress expõe portas externamente — os serviços de app e banco são ClusterIP, acessíveis apenas dentro do cluster.
 
 **Ferramentas:** GitHub Actions, Docker Build Push Action, GitHub Container Registry, Cert Manager, Let's Encrypt, Nginx Ingress Controller.
+
+
+---
+
+## Expansao da Cobertura de Testes
+
+Apos a integracao com o SonarCloud, a cobertura inicial estava em 20,9%. Para aumenta-la significativamente, expandi o arquivo server/tests/games.test.js com testes que cobrem as partes mais complexas do games.js, que exigiam a criacao de mock sockets - objetos que imitam o comportamento de conexoes Socket.io reais sem depender de um servidor rodando.
+
+Os mocks implementam os metodos emit, on, disconnect e trigger (para simular eventos recebidos), permitindo testar:
+
+- Game.prototype.getId - retorno do identificador do jogo
+- Game.prototype.addPlayer - aceitacao do primeiro e segundo jogador, notificacao via player-connected, e rejeicao de um terceiro jogador
+- Game.prototype._addHandlers - repasse bidirecional de eventos (event, life-update, position-update) entre os dois jogadores
+- Game.prototype.endGame - desconexao do oponente e remocao do jogo da colecao ao desconectar qualquer um dos jogadores, e comportamento seguro quando chamado sem jogadores
+
+O resultado final foi 100% de cobertura de statements, branches, funcoes e linhas no arquivo games.js, e 50,4% de cobertura geral reportada pelo SonarCloud.
+
+---
+
+## Deploy em Ambiente de Producao
+
+A aplicacao foi publicada publicamente utilizando a plataforma Render, que oferece hospedagem gratuita com suporte a Docker e PostgreSQL.
+
+O processo foi:
+
+1. Criacao de uma instancia PostgreSQL gratuita no Render, que forneceu automaticamente uma DATABASE_URL de conexao
+2. Criacao de um Web Service conectado ao repositorio GitHub, configurado para usar o Dockerfile.prod (multi-stage build)
+3. Configuracao da variavel de ambiente DATABASE_URL com a string de conexao do banco
+4. Correcao do Dockerfile.prod para incluir a pasta game/ no container, necessaria para o Express servir os arquivos estaticos do frontend
+
+A URL publica do ambiente de producao e: https://gces-projetoindividual.onrender.com
+
+O Render realiza redeploy automatico a cada push na branch main, complementando o pipeline de CD ja configurado no GitHub Actions.
+
+Ferramentas: Render, Docker, PostgreSQL, GitHub Actions (CD automatico).
