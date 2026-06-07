@@ -1,0 +1,15 @@
+# Stage 1: instala dependencias
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY server/package*.json ./
+RUN npm ci --only=production
+
+# Stage 2: imagem de producao
+FROM node:20-alpine AS production
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY server/ .
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+EXPOSE 55555
+CMD ["node", "server.js"]
