@@ -4,6 +4,8 @@ Projeto individual da disciplina de **Gerência de Configuração e Evolução d
 
 A aplicação base é o **mk.js**, um jogo de luta com Backend em Node.js/Express e Frontend em HTML5 Canvas/JavaScript, com suporte a modo multiplayer em rede via Socket.io.
 
+**URL pública:** https://gces-projetoindividual.onrender.com
+
 ## Pré-requisitos
 
 - Docker e Docker Compose
