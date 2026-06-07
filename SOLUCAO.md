@@ -1,12 +1,10 @@
 # Relatório de Solução — Projeto Individual
 
-**Disciplina:** Gerência de Configuração e Evolução de Software (GCES — 2026/1)
-**Aluna:** Anna Clara Cardoso Evangelista Brandão
-**Matrícula:** 222006534
-**Repositório:** https://github.com/annacbrandao/gces-projetoindividual
-**URL de Producao:** https://gces-projetoindividual.onrender.com
-**URL de Produção:** https://gces-projetoindividual.onrender.com
-**URL de Produção:** https://gces-projetoindividual.onrender.com
+- **Disciplina:** Gerência de Configuração e Evolução de Software (GCES — 2026/1)
+- **Aluna:** Anna Clara Cardoso Evangelista Brandão
+- **Matrícula:** 222006534
+- **Repositório:** https://github.com/annacbrandao/gces-projetoindividual
+- **URL de Producao:** https://gces-projetoindividual.onrender.com
 
 ---
 
@@ -115,22 +113,22 @@ Para o HTTPS, o `cert-manager-issuer.yml` define um ClusterIssuer com Let's Encr
 
 ---
 
-## Expansao da Cobertura de Testes
+## Expansão da Cobertura de Testes
 
-Apos a integracao com o SonarCloud, a cobertura inicial estava em 20,9%. Para aumenta-la significativamente, expandi o arquivo server/tests/games.test.js com testes que cobrem as partes mais complexas do games.js, que exigiam a criacao de mock sockets - objetos que imitam o comportamento de conexoes Socket.io reais sem depender de um servidor rodando.
+Apos a integração com o SonarCloud, a cobertura inicial estava em 20,9%. Para aumentá-la significativamente, expandi o arquivo server/tests/games.test.js com testes que cobrem as partes mais complexas do games.js, que exigiam a criação de mock sockets - objetos que imitam o comportamento de conexões Socket.io reais sem depender de um servidor rodando.
 
-Os mocks implementam os metodos emit, on, disconnect e trigger (para simular eventos recebidos), permitindo testar:
+Os mocks implementam os métodos emit, on, disconnect e trigger (para simular eventos recebidos), permitindo testar:
 
 - Game.prototype.getId - retorno do identificador do jogo
-- Game.prototype.addPlayer - aceitacao do primeiro e segundo jogador, notificacao via player-connected, e rejeicao de um terceiro jogador
+- Game.prototype.addPlayer - aceitação do primeiro e segundo jogador, notificação via player-connected, e rejeição de um terceiro jogador
 - Game.prototype._addHandlers - repasse bidirecional de eventos (event, life-update, position-update) entre os dois jogadores
-- Game.prototype.endGame - desconexao do oponente e remocao do jogo da colecao ao desconectar qualquer um dos jogadores, e comportamento seguro quando chamado sem jogadores
+- Game.prototype.endGame - desconexão do oponente e remoção do jogo da coleção ao desconectar qualquer um dos jogadores, e comportamento seguro quando chamado sem jogadores
 
-O resultado final foi 100% de cobertura de statements, branches, funcoes e linhas no arquivo games.js, e 51,9% de cobertura geral reportada pelo SonarCloud.
+O resultado final foi 100% de cobertura de statements, branches, funções e linhas no arquivo games.js, e 51,9% de cobertura geral reportada pelo SonarCloud.
 
 ---
 
-## Deploy em Ambiente de Producao
+## Deploy em Ambiente de Produção
 
 A aplicacao foi publicada publicamente utilizando a plataforma Render, que oferece hospedagem gratuita com suporte a Docker e PostgreSQL.
 
@@ -141,8 +139,8 @@ O processo foi:
 3. Configuracao da variavel de ambiente DATABASE_URL com a string de conexao do banco
 4. Correcao do Dockerfile.prod para incluir a pasta game/ no container, necessaria para o Express servir os arquivos estaticos do frontend
 
-A URL publica do ambiente de producao e: https://gces-projetoindividual.onrender.com
+A URL pública do ambiente de produção é: https://gces-projetoindividual.onrender.com
 
-O Render realiza redeploy automatico a cada push na branch main, complementando o pipeline de CD ja configurado no GitHub Actions.
+O Render realiza redeploy automático a cada push na branch main, complementando o pipeline de CD já configurado no GitHub Actions.
 
-Ferramentas: Render, Docker, PostgreSQL, GitHub Actions (CD automatico).
+Ferramentas: Render, Docker, PostgreSQL, GitHub Actions (CD automático).
