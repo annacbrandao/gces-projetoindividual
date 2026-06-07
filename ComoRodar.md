@@ -41,7 +41,13 @@ Para jogar em modo rede, abra duas abas:
 
 ---
 
-## Ambiente de Produção (com Nginx)
+## Ambiente de Produção
+
+### URL Pública
+
+A aplicação está disponível em: https://gces-projetoindividual.onrender.com
+
+### Rodar localmente com Nginx
 
     docker compose -f docker-compose.prod.yml up --build
 
