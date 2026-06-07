@@ -126,7 +126,7 @@ Os mocks implementam os metodos emit, on, disconnect e trigger (para simular eve
 - Game.prototype._addHandlers - repasse bidirecional de eventos (event, life-update, position-update) entre os dois jogadores
 - Game.prototype.endGame - desconexao do oponente e remocao do jogo da colecao ao desconectar qualquer um dos jogadores, e comportamento seguro quando chamado sem jogadores
 
-O resultado final foi 100% de cobertura de statements, branches, funcoes e linhas no arquivo games.js, e 50,4% de cobertura geral reportada pelo SonarCloud.
+O resultado final foi 100% de cobertura de statements, branches, funcoes e linhas no arquivo games.js, e 51,9% de cobertura geral reportada pelo SonarCloud.
 
 ---
 
