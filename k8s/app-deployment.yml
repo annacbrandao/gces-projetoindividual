@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  namespace: mkjs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mkjs-app
+  template:
+    metadata:
+      labels:
+        app: mkjs-app
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/annacbrandao/gces-projetoindividual-app:latest
+          ports:
+            - containerPort: 55555
+          envFrom:
+            - secretRef:
+                name: postgres-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+  namespace: mkjs
+spec:
+  selector:
+    app: mkjs-app
+  ports:
+    - port: 55555
+      targetPort: 55555

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: mkjs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mkjs-nginx
+  template:
+    metadata:
+      labels:
+        app: mkjs-nginx
+    spec:
+      containers:
+        - name: nginx
+          image: ghcr.io/annacbrandao/gces-projetoindividual-nginx:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: mkjs
+spec:
+  type: LoadBalancer
+  selector:
+    app: mkjs-nginx
+  ports:
+    - port: 80
+      targetPort: 80
